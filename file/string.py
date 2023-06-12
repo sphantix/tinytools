@@ -3,12 +3,12 @@
 # author : sphantix
 
 import time
- 
+
 def exetime(fn):
     def _wrapper(*args, **kwargs):
-        start = time.clock()
+        start = time.perf_counter()
         fn(*args, **kwargs)
-        print "%s cost %.10fs second"%(fn.__name__, time.clock() - start)
+        print(f"{fn.__name__} cost {time.perf_counter() - start}s seconds")
     return _wrapper
 
 #字符串的反转
@@ -18,22 +18,22 @@ def reverse1 (s):
     for i in range(len(s)-1, -1, -1):
         rt += s[i]
     return rt
-  
+
 @exetime
 def reverse2 (s):
     li = list(s)
     li.reverse()
     rt = "".join(li)
     return rt
-  
+
 @exetime
 def reverse3 (s):
     return s[::-1]
-  
+
 @exetime
 def reverse4 (s):
     return "".join(reversed(s))
-  
+
 from functools import reduce
 @exetime
 def reverse5 (s):
